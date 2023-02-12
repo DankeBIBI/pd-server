@@ -5,10 +5,10 @@ module.exports = {
     entry: {
         index: `${path.join(__dirname, __dirname.indexOf(':') != -1 ? 'src\\index.ts' : 'src\/index.ts')}`
     },
-    // output: {
-    //     path: path.join(__dirname, 'webpack'),
-    //     filename: 'index.js'
-    // },
+    output: {
+        path: path.join(__dirname, ''),
+        filename: 'index.js'
+    },
     module: {
         rules: [
             {

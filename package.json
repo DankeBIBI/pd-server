@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "build": "node index",
         "tc": "yarn tsc && nodemon",
         "tb": "yarn webpack",
         "tg": " webpack  && cd dist && node index && cd .."
@@ -14,6 +15,7 @@
     "dependencies": {
         "@types/koa-router": "^7.4.4",
         "@types/mongoose": "^5.11.97",
+        "@vercel/node": "^2.9.2",
         "koa": "^2.14.1",
         "koa-body": "4.1.0",
         "koa-bodyparser": "^4.3.0",
