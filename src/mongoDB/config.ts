@@ -8,5 +8,5 @@ const server = [
 ]
 export = {
     server: server[user],
-    // rules: mongoDB.rules,
+    rules: mongoDB.rules,
 }

@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "node index",
+        "start": "node main,js",
+        "up":"webpack && vercel --prod",
         "tc": "yarn tsc && nodemon",
         "tb": "yarn webpack",
         "tg": " webpack  && cd dist && node index && cd .."

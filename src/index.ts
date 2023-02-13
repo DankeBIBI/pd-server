@@ -6,7 +6,7 @@ import cors from "koa-cors"//跨域
 import koabody from "koa-body"
 import router from "./router"
 import { response, fail } from "./server/response"//设置请求返回的统一模板
-import config  from "./utils/config"
+import config from "./utils/config"
 const app = new koa()//创建
 
 app.use(_static(path.join(__dirname, './static')))
@@ -24,6 +24,9 @@ app.use(router.routes())
 router.allowedMethods({
     throw: true,
 })
-app.listen(config.port, () => {
-    console.log(`服务启动！端口是${config.port}`)
-})
+const run = () => {
+    app.listen(config.port, () => {
+        console.log(`服务启动！端口是${config.port}`)
+    })
+}
+run()

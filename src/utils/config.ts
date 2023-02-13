@@ -7,7 +7,7 @@ export default {
     port: 8080,
     version: '1.0.1',
     mongoDB: {
-        user: 1,
+        user: 0,
         user_name: [
             'ggDKEllDKEllDKEiiDKE157DKE988',
             'iiDKEvvDKEeeDKEiiDKEvvDKEhhDKE-DKEwwDKEkkDKE494DKE955'

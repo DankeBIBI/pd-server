@@ -7,7 +7,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, ''),
-        filename: 'index.js'
+        filename: 'pd-server.js'
     },
     module: {
         rules: [

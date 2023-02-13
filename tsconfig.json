@@ -12,7 +12,7 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "suppressImplicitAnyIndexErrors": true                 // 关闭      元素隐式具有 "any" 类型，因为类型为 "any" 的表达式不能用于索引类型  检查
   },
-  "exclude": ["webpack.config.js","node_modules","dev","webpack","dist","index.js"],   //跳过编译的文件&文件夹
+  "exclude": ["node_modules","dev","webpack","./*.js"],   //跳过编译的文件&文件夹
 //   "include": [
 //     "src/**/*",
 //     // "src/**/*.txt"
