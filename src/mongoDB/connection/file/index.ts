@@ -75,7 +75,7 @@ export class UPLOAD {
                     status: '上传成功',
                     file_size: file.size < 1000000 ? (file.size / 1000).toFixed(2) + 'KB' : (file.size / 1000 / 1000).toFixed(2) + 'MB',
                     date: tools.date(),
-                    img: `http://${config.localHost}:${config.port}/upload/${data.folder}/${file.name}`
+                    img: `http://${config.host}:${config.port}/upload/${data.folder}/${file.name}`
                 }
             await pipe()
             const res = await uploadLog.create(param)

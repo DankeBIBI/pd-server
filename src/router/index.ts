@@ -8,6 +8,7 @@ import { USER } from '../mongoDB/connection/userInfo'
 import { UPLOAD } from '../mongoDB/connection/file'
 import { TOOLS } from '../mongoDB/connection/tools'
 import { BLOG } from '../mongoDB/connection/blog'
+import { SERVER_LOG } from '../mongoDB/connection/server_log'
 
 //用户信息模块---------------------------------------------
 router.get('/getUserInfo', USER.getUserInfo)
@@ -23,6 +24,9 @@ router.get('/getUserInfo', USER.getUserInfo)
     //文章模块------------------------------------------------
     .post('/createBlog', BLOG.createBlog)
     .post('/userBlog', BLOG.userBlog)
+    
+    //状态模块------------------------------------------------
+    .get('/startLog', SERVER_LOG.startLog)
     .get('/', async (src: Context) => {
         src.body = 'DANKEBIBI'
     })

@@ -72,5 +72,4 @@ export class tools {
     static getConfig() {
         return config
     }
-
 }

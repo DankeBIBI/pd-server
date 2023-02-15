@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node main,js",
-        "up":"webpack && vercel --prod",
+        "up": "webpack && vercel --prod",
         "tc": "yarn tsc && nodemon",
         "tb": "yarn webpack",
         "tg": " webpack  && cd dist && node index && cd .."
@@ -16,6 +16,7 @@
     "dependencies": {
         "@types/koa-router": "^7.4.4",
         "@types/mongoose": "^5.11.97",
+        "@types/node-fetch": "^2.6.2",
         "@vercel/node": "^2.9.2",
         "koa": "^2.14.1",
         "koa-body": "4.1.0",
@@ -26,6 +27,7 @@
         "koa-static": "^5.0.0",
         "mongodb": "^4.13.0",
         "mongoose": "5.0.0",
+        "node-fetch": "^3.3.0",
         "node-polyfill-webpack-plugin": "^2.0.1",
         "nodemon": "^2.0.20",
         "ts-loader": "^9.4.2",

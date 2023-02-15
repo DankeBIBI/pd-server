@@ -2,11 +2,10 @@ export default {
     projectName: 'photo_base',
     name: 'pb',
     host: '47.115.218.121',
-    // localHost: '47.115.218.121',
-    localHost: '127.0.0.1',
     port: 8080,
     version: '1.0.1',
     mongoDB: {
+        is_local:false,
         user: 0,
         user_name: [
             'ggDKEllDKEllDKEiiDKE157DKE988',
