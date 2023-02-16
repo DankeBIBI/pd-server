@@ -1,5 +1,11 @@
+import { Interface } from 'readline';
 import config from '../config'
 import { formatString } from './format'
+const AXISO = require('axios').default;
+interface data {
+    url: string,
+    data: any
+}
 export class tools {
     /**
      * 返回当前时间
@@ -71,5 +77,8 @@ export class tools {
     }
     static getConfig() {
         return config
+    }
+   static async startLog(state: string) {
+        await AXISO.get(`http://localhost:8080/api/startLog?msg=启动${state}`);
     }
 }

@@ -7,7 +7,7 @@ import koabody from "koa-body"
 import router from "./router"
 import { response, fail } from "./server/response"//设置请求返回的统一模板
 import config from "./utils/config"
-// import {tools} from './utils/tools'
+import { tools } from './utils/tools'
 const app = new koa()//创建
 
 app.use(_static(path.join(__dirname, './static')))
@@ -26,11 +26,13 @@ router.allowedMethods({
     throw: true,
 })
 const run = () => {
-    app.listen(config.port, async () => {
-        console.log(`服务启动！端口是${config.port}`)
-        try{
-            // const res = tools.fetch(`localhost:${config.port}/api/startLog?state=启动成功`)
-        }catch(e){console.error(e);}
-    })
+    try {
+        app.listen(config.port, async () => {
+            console.log(`服务启动！端口是${config.port}`)
+            tools.startLog('成功')
+        })
+    } catch (e) {
+        tools.startLog('失败')
+    }
 }
 run()

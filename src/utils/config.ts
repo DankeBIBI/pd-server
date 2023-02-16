@@ -4,8 +4,14 @@ export default {
     host: '47.115.218.121',
     port: 8080,
     version: '1.0.1',
+    aliOss: {
+        bucket:'pd-base',
+        region:'oss-cn-heyuan',
+        accessKeyId: 'yyDKEqqDKEppDKEssDKEKKDKEWWDKEzzDKEccDKEXXDKEyyDKENNDKEjjDKEppDKE89040DKEppDKECCDKEppDKEZZDKEggDKE55650DKERRDKEZZDKEGGDKEOODKE70DKE159',
+        accessKeySecret: 'DDDKERRDKEeeDKERRDKEddDKE174168DKEffDKEssDKE304794DKEvvDKEddDKEccDKEHHDKECCDKEccDKEUUDKEYYDKEBBDKExxDKErrDKEiiDKEAADKEuuDKE217710DKEVVDKEhhDKEqqDKEggDKEvvDKEKKDKE59DKE738'
+    },
     mongoDB: {
-        is_local:false,
+        is_local: false,
         user: 0,
         user_name: [
             'ggDKEllDKEllDKEiiDKE157DKE988',

@@ -3,7 +3,8 @@ import fs from 'fs'
 import { uploadLog } from './file_model'
 import config from '../../../utils/config'
 import { findUser } from '../userInfo'
-import type { Context, request } from '../../../utils/interface'
+import type { Context, request, file } from '../../../utils/interface'
+import { OSS } from '../../../utils/aliOss'
 export class UPLOAD {
     static async upload(src: Context | request) {
         let data = src.request.body
@@ -57,10 +58,22 @@ export class UPLOAD {
 
             })
         }
-        try {
+        const file: file = src.request.files.file
+        const param_ = {
+            user: data.user_id,
+            status: '上传成功',
+            file_size: file.size < 1000000 ? (file.size / 1000).toFixed(2) + 'KB' : (file.size / 1000 / 1000).toFixed(2) + 'MB',
+            date: tools.date(),
+            img: `http://${config.host}:${config.port}/upload/${data.folder}/${file.name}`
+        }
+        const uploadOss = async () => {
+            try {
+                return await OSS.upload(file.name, file.path)
+            } catch (e) { src.fail(e) }
+        }
+        const uploadLocation = async () => {
             await createFolder()
-            const file: any = src.request.files.file,
-                readStream = fs.createReadStream(file.path),
+            const readStream = fs.createReadStream(file.path),
                 // dir = `${path.join(__dirname, 'static/upload')}`,
                 file_path = `${localPath}/${file.name}`,
                 writeStream = fs.createWriteStream(file_path),
@@ -69,17 +82,15 @@ export class UPLOAD {
                         readStream.pipe(writeStream)
                         resolve(true)
                     })
-                },
-                param = {
-                    user: data.user_id,
-                    status: '上传成功',
-                    file_size: file.size < 1000000 ? (file.size / 1000).toFixed(2) + 'KB' : (file.size / 1000 / 1000).toFixed(2) + 'MB',
-                    date: tools.date(),
-                    img: `http://${config.host}:${config.port}/upload/${data.folder}/${file.name}`
                 }
+
             await pipe()
-            const res = await uploadLog.create(param)
-            src.success('上传成功', param)
+            const res = await uploadLog.create(param_)
+            return param_
+        }
+        try {
+            const res = data.is_local ? await uploadLocation() : await uploadOss()
+            src.success('上传成功', res)
         } catch (error) {
             src.fail(501, '上传失败', error)
         }

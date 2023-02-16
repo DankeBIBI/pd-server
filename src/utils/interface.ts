@@ -4,8 +4,16 @@ interface request {
     fail: Function,
     success: Function
 }
+interface file {
+    size: string |any,
+    path: string,
+    name: string,
+    type: string,
+    mtime: string
+}
 export {
     request,
     Context,
-    Next
+    Next,
+    file
 }
