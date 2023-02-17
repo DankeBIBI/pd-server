@@ -5,3 +5,4 @@ webpack/
 .vercel
 
 .vercel
+*.log

@@ -36,18 +36,10 @@ const USERINFO = new mongo.Schema({
             type: String,
             default: tools.version()
         },
-        source_version: {
-            type: String,
-            default: tools._version()
-        },
         time: {
             type: String,
             default: tools.date()
-        },
-        source_time: {
-            type: String,
-            default: Date.now()
-        },
+        }
     },
 })
 const PASSWORD = new mongo.Schema({
