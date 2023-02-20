@@ -8,6 +8,7 @@ import router from "./router"
 import { response, fail } from "./server/response"//设置请求返回的统一模板
 import config from "./utils/config"
 import { tools } from './utils/tools'
+import { TIMER } from './server/timer'
 const app = new koa()//创建
 
 app.use(_static(path.join(__dirname, './static')))
@@ -25,11 +26,15 @@ app.use(router.routes())
 router.allowedMethods({
     throw: true,
 })
+// TIMER(tools.startLog(`timer ... ${Date.now()}`))
+TIMER(()=>{
+    tools.startLog(`timer ... ${Date.now()}`)
+    // console.log(123)
+})
 const run = () => {
     try {
         app.listen(config.port, async () => {
             console.log(`服务启动！端口是${config.port}`)
-            tools.startLog('成功')
         })
     } catch (e) {
         tools.startLog('失败')
