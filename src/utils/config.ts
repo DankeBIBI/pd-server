@@ -21,5 +21,16 @@ export default {
         dbHost: '27017',
         dataBase: 'photo_base',
         rules: { useNewUrlParser: true, useUnifiedTopology: true, authSource: 'admin' }
+    },
+    mySQL:{
+        is_local: true,
+        user: 0,
+        user_name: [
+            'ggDKEllDKEllDKEiiDKE491DKE411',
+        ],
+        password: 'ggDKEllDKEllDKEiiDKE491DKE411',
+        dbHost: '3306',
+        dataBase: 'pd-base',
+        rules: { useNewUrlParser: true, useUnifiedTopology: true, authSource: 'admin' }
     }
 }

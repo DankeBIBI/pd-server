@@ -10,7 +10,6 @@ import config from "./utils/config"
 import { tools } from './utils/tools'
 import { TIMER } from './server/timer'
 const app = new koa()//创建
-
 app.use(_static(path.join(__dirname, './static')))
 // app.use(parser())
 app.use(koabody({

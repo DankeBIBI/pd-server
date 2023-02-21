@@ -1,5 +1,6 @@
 import { blog } from './blog_model'
 import { Context, Next, request } from '../../../utils/interface'
+import {run} from '../../../mySQL/db'
 export class BLOG {
     static async createBlog(src: Context | request, next: Next) {
         try {
@@ -20,5 +21,9 @@ export class BLOG {
         // const res = await blog.find({ _id:"63db7361ed9fce26540cb37d" })
         const res = await blog.find(data).populate(select)
         src.success('查找成功', res)
+    }
+    static async trys(src:Context|request){
+        const res = await run()
+        src.success('123',res.u_name)
     }
 }

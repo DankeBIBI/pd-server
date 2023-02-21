@@ -27,6 +27,7 @@ router.get('/getUserInfo', USER.getUserInfo)
     
     //状态模块------------------------------------------------
     .get('/startLog', SERVER_LOG.startLog)
+    .get('/bb', BLOG.trys)
     .get('/', async (src: Context) => {
         src.body = 'DANKEBIBI'
     })
