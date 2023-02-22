@@ -1,6 +1,6 @@
 import { blog } from './blog_model'
 import { Context, Next, request } from '../../../utils/interface'
-import {run} from '../../../mySQL/db'
+import {USER_M} from '../../../mySQL/connection/user/model'
 export class BLOG {
     static async createBlog(src: Context | request, next: Next) {
         try {
@@ -23,7 +23,7 @@ export class BLOG {
         src.success('查找成功', res)
     }
     static async trys(src:Context|request){
-        const res = await run()
-        src.success('123',res.u_name)
+        const res = await USER_M.findAll({})
+        src.success('123',res)
     }
 }

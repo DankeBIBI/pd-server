@@ -4,11 +4,14 @@ export default {
     host: '47.115.218.121',
     port: 8080,
     version: '1.0.1',
+    useDB:'mysql',
+    // useDB:'mongo',
     aliOss: {
         bucket:'pd-base',
         region:'oss-cn-heyuan',
         accessKeyId: 'yyDKEqqDKEppDKEssDKEKKDKEWWDKEzzDKEccDKEXXDKEyyDKENNDKEjjDKEppDKE89040DKEppDKECCDKEppDKEZZDKEggDKE55650DKERRDKEZZDKEGGDKEOODKE70DKE159',
-        accessKeySecret: 'DDDKERRDKEeeDKERRDKEddDKE174168DKEffDKEssDKE304794DKEvvDKEddDKEccDKEHHDKECCDKEccDKEUUDKEYYDKEBBDKExxDKErrDKEiiDKEAADKEuuDKE217710DKEVVDKEhhDKEqqDKEggDKEvvDKEKKDKE59DKE738'
+        accessKeySecret: 'DDDKERRDKEeeDKERRDKEddDKE174168DKEffDKEssDKE304794DKEvvDKEddDKEccDKEHHDKECCDKEccDKEUUDKEYYDKEBBDKExxDKErrDKEiiDKEAADKEuuDKE217710DKEVVDKEhhDKEqqDKEggDKEvvDKEKKDKE59DKE738',
+        path:'https://pd-base.oss-cn-heyuan.aliyuncs.com/'
     },
     mongoDB: {
         is_local: false,
