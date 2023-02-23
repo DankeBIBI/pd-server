@@ -4,17 +4,12 @@ import path from "path"
 import cors from "koa-cors"//跨域
 // parser = require("koa-bodyparser"),//post 请求解析
 import koabody from "koa-body"
-import mongo from "./router/mongo"
-import mysql from './router/mysql'
 import { response, fail } from "./server/response"//设置请求返回的统一模板
 import config from "./utils/config"
 import { tools } from './utils/tools'
 import { TIMER } from './server/timer'
-const ROUTER ={
-    'mongo':mongo,
-    'mysql':mysql
-} 
-const router = ROUTER[config.useDB]
+import {distributionRouter} from './router/getRouter'
+const router:any = distributionRouter(config.useDB)
 const app = new koa()//创建
 app.use(_static(path.join(__dirname, './static')))
 // app.use(parser())
@@ -33,7 +28,7 @@ router.allowedMethods({
 })
 // TIMER(tools.startLog(`timer ... ${Date.now()}`))
 TIMER(()=>{
-    tools.startLog(`timer ... ${Date.now()}`)
+    // tools.startLog(`timer ... ${Date.now()}`)
     // console.log(123)
 })
 const run = () => {

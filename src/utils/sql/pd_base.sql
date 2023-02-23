@@ -21,14 +21,15 @@ CREATE TABLE pd_user(
  	u_name VARCHAR(255) NOT NULL,
  	phone VARCHAR (11) NOT NULL,
  	head_url VARCHAR(255),
- 	sex INT (1),
- 	age INT (10),
+ 	sex INT (1) DEFAULT 1,
+ 	age INT (10) DEFAULT 1,
  	integral INT (10),
+ 	lever INT DEFAULT 1,
  	create_time DATETIME,
 	update_time DATETIME, PRIMARY KEY(id), UNIQUE KEY(u_id)
 ) CHARSET=UTF8 ENGINE = INNODB; BEGIN;
-INSERT INTO pd_user VALUES (1,82022094,'野猪佩奇','13425278202','https://pd-base.oss-cn-heyuan.aliyuncs.com/icon.png',1,100,10000,'2023-2-3  12:9:0','2023-2-3  12:9:0');
-INSERT INTO pd_user VALUES (2,36072330,'靓仔','13129713607','https://pd-base.oss-cn-heyuan.aliyuncs.com/icon.png',2,99,238930,'2023-2-3  12:9:0','2023-2-3  12:9:0'); COMMIT; 
+INSERT INTO pd_user VALUES (1,82022094,'野猪佩奇','13425278202','https://pd-base.oss-cn-heyuan.aliyuncs.com/icon.png',1,100,10000,1,'2023-2-3  12:9:0','2023-2-3  12:9:0');
+INSERT INTO pd_user VALUES (2,36072330,'靓仔','13129713607','https://pd-base.oss-cn-heyuan.aliyuncs.com/icon.png',2,99,238930,1,'2023-2-3  12:9:0','2023-2-3  12:9:0'); COMMIT; 
 
 
  /*
@@ -54,8 +55,9 @@ CREATE TABLE pd_blog(
  	u_id INT(8) UNSIGNED NOT NULL,
  	title VARCHAR (255) NOT NULL,
  	content TEXT,
- 	pic VARCHAR (255),
- 	views INT, 
+ 	pic TEXT ,
+ 	views INT DEFAULT 0, 
+ 	star INT DEFAULT 0,
 	create_time DATETIME,
 	update_time DATETIME, FOREIGN KEY (u_id) REFERENCES pd_user(u_id) ON
 UPDATE CASCADE ON
@@ -70,4 +72,5 @@ BEGIN; SET foreign_key_checks = 1; COMMIT;
 -- -- UPDATE pd_user_p SET u_id = 111111 WHERE u_id = 36072330;
 -- SELECT * FROM pd_user
 -- SELECT * FROM pd_user_p
--- select * from pd_blog
+-- select * from pd_blogpd_blog
+-- mysqlmysql`pd-base`pd_user_pALTER  table pd_user ADD lever int DEFAULT 0

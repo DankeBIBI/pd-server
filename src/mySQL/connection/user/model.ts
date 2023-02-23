@@ -68,6 +68,10 @@ USER_M.init({
     integral: {
         type: DataTypes.INTEGER,
         defaultValue: 0
+    },
+    lever:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
     }
 
 }, {

@@ -78,7 +78,7 @@ export class tools {
     static getConfig() {
         return config
     }
-   static async startLog(state: string) {
+    static async startLog(state: string) {
         await AXISO.get(`http://localhost:8080/api/startLog?msg=启动${state}`);
     }
 }

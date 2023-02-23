@@ -113,11 +113,11 @@ export class USER extends USER_M {
             }))
         } catch (e) { console.error(e); }
     }
-    static async deleteUserInfo(src:Context | request) {
+    static async deleteUserInfo(src: Context | request) {
         const { user_id } = src.request.body
-        try{
-         const res  =await USER.destroy({where:{u_id:user_id}})
-         src.success('用户注销成功','有缘再会')
-        }catch(e){console.error(e);}
+        try {
+            const res = await USER.destroy({ where: { u_id: user_id } })
+            src.success('用户注销成功', `再见、${user_id}`)
+        } catch (e) { console.error(e); }
     }
 }

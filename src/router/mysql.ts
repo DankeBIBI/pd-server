@@ -6,6 +6,7 @@ const router = new route({
 
 import { USER } from '../mySQL/connection/user'
 import { TOOLS } from '../mySQL/connection/tools'
+import { BLOG } from '../mySQL/connection/blog'
 router.get('/getUserInfo', USER.getUserInfo)
     .post('/createUserInfo', USER.createUser)
     .post('/updateUserInfo', USER.updateUserInfo)
@@ -16,8 +17,8 @@ router.get('/getUserInfo', USER.getUserInfo)
     .get('/encryption', TOOLS.encryption)
     .get('/decrypt', TOOLS.decrypt)
     //文章模块------------------------------------------------
-    // // .post('/createBlog', BLOG.createBlog)
-    // .post('/userBlog', BLOG.userBlog)
+    .post('/createBlog', BLOG.createBlog)
+    .get('/userBlog', BLOG.getUserBlog)
 
     //状态模块------------------------------------------------
     // .get('/startLog', SERVER_LOG.startLog)

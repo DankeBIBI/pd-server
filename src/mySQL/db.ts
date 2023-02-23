@@ -1,5 +1,6 @@
 import config from '../utils/config'
 import { tools } from '../utils/tools'
+import * as interfaces from '../utils/interface'
 import { Model, DataTypes } from 'sequelize'
 const Sequelize = require('sequelize')
 const mySQL = config.mySQL
@@ -33,5 +34,5 @@ export {
     tools,
     config,
     rules,
-
+    interfaces,
 }
