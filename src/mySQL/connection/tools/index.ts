@@ -1,8 +1,16 @@
-import {Context,request,file} from '../../../utils/interface'
+import { Context, request, file } from '../../../utils/interface'
 import { tools } from '../../../utils/tools'
 import fs from 'fs'
 import config from '../../../utils/config'
 import { OSS } from '../../../utils/aliOss'
+import { UPLOAD_LOG_M } from './model'
+import { USER_M } from '../user/model'
+import { findUser } from '../user/index'
+UPLOAD_LOG_M.belongsTo(USER_M, {
+    as: 'userInfo',
+    foreignKey: 'u_id',
+    targetKey: 'u_id'
+})
 export class TOOLS {
     /**
      * 加密
@@ -19,7 +27,15 @@ export class TOOLS {
         src.body = tools.decrypt(msg)
     }
     static async upload(src: Context | request) {
-        const  data = src.request.body
+        const data = src.request.body
+        if (!data.user_id) {
+            src.fail('请登录', 501)
+            return
+        }
+        if (await findUser({ u_id: data.user_id }) == false) {
+            src.fail('用户未注册', 501)
+            return
+        }
         if (!fs.existsSync('static')) {
             fs.mkdirSync('static')
         }
@@ -66,17 +82,18 @@ export class TOOLS {
         const param_ = {
             user: data.user_id,
             status: '上传成功',
-            file_size: file.size < 1000000 ? (file.size / 1000).toFixed(2) + 'KB' : (file.size / 1000 / 1000).toFixed(2) + 'MB',
+            size: file.size < 1000000 ? (file.size / 1000).toFixed(2) + 'KB' : (file.size / 1000 / 1000).toFixed(2) + 'MB',
             date: tools.date(),
             filePath: `http://${config.host}:${config.port}/upload/${data.folder}/${file.name}`
         }
         const uploadOss = async () => {
             try {
-                const res = await OSS.upload(data.folder+'/'+file.name, file.path)
-                param_.filePath = config.aliOss.path+data.folder+'/'+file.name
+                const res = await OSS.upload(data.folder + '/' + file.name, file.path)
+                // param_.filePath = config.aliOss.path + data.folder + '/' + file.name
+                param_.filePath = res.res.requestUrls[0]
                 return {
                     ...param_,
-                    res
+                    code: res.res.statusCode
                 }
             } catch (e) { src.fail(e) }
         }
@@ -98,10 +115,17 @@ export class TOOLS {
             return param_
         }
         try {
-            const res = data.is_local ? await uploadLocation() : await uploadOss()
+            const res: any = data.is_local ? await uploadLocation() : await uploadOss()
+            await UPLOAD_LOG_M.create({ u_id: data.user_id, size: param_.size })
+            if (res.code == 200 && !data.is_local) {
+                return src.success('上传成功', res)
+            } else if (res.code != 200 && !data.is_local) {
+                return src.fail(501, '上传失败')
+            }
             src.success('上传成功', res)
         } catch (error) {
-            src.fail(501, '上传失败', error)
+            console.log("🚀这是打印的数据哦 ~ error:", error)
+            src.fail(501, '上传失败')
         }
     }
 }

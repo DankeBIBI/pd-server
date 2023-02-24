@@ -6,8 +6,11 @@ BLOG_M.belongsTo(USER_M, {
     foreignKey: 'u_id',
     targetKey: 'u_id'
 })
-BLOG_M.sync()
 export class BLOG extends BLOG_M {
+    /**
+     * 创建文章
+     * @param src 
+     */
     static async createBlog(src: Context | request) {
         const { author, title, content, image } = src.request.body
         try {
@@ -15,6 +18,10 @@ export class BLOG extends BLOG_M {
             src.success('创建成功', res)
         } catch (e) { console.error(e); }
     }
+    /**
+     * 获取文章
+     * @param src 
+     */
     static async getUserBlog(src: Context | request) {
         const { author } = src.request.body
         let rules = {}
@@ -23,12 +30,13 @@ export class BLOG extends BLOG_M {
                 where: { u_id: author ? author : '' },
             }
         }
-
+        //   src.success(src.request.body)
+        //   return
         try {
             const res: any = await BLOG.findAndCountAll({
                 ...rules,
                 attributes: {
-                    exclude: ['id', 'u_id']
+                    exclude: ['u_id']
                 },
                 include: [
                     {
@@ -39,13 +47,28 @@ export class BLOG extends BLOG_M {
                 ]
             })
             if (res.count > 0) {
-                res.rows.forEach((element:any,index:number) => {
-                    if(element.pic && element.pic.length>10){
+                res.rows.forEach((element: any, index: number) => {
+                    if (element.pic && element.pic.length > 10) {
                         res.rows[index].pic = JSON.parse(res.rows[index].pic)
                     }
                 });
             }
             src.success('查找成功', res)
         } catch (e) { console.error(e); }
+    }
+    static async setBlogStarAndViews(src: Context | request) {
+        const { id, views, star } = src.request.body
+        const res: any = await BLOG_M.findOne({ where: { id: Number(id) } })
+        if (views)
+            await res.set({
+                views: res.views + Number(views)
+            })
+        if (star)
+            await res.set({
+                star: res.star + Number(star)
+            })
+        await res.save()
+        src.success(`${views ? `浏览量+1` : '点赞成功'}`, res)
+
     }
 }

@@ -49,7 +49,7 @@ export class OSS {
     static async upload(name: string, file: string) {
         try {
            
-            return await this.client.put(name, file,params);
+            return await this.client.put(name, file);
         } catch (e) {
             console.log(e);
         }

@@ -1,6 +1,5 @@
 import { sequelize } from '../db'
 import { Model, DataTypes } from 'sequelize'
-// base.sync()？同步表
 class USER extends Model {
     declare u_id: number
 }

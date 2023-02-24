@@ -1,4 +1,4 @@
-import { DataTypes, sequelize, rules, Model } from '../../db'
+import { DataTypes, rules, Model } from '../../db'
 // export const USER_M = sequelize.define("pd_user", {
 //     id: {
 //         type: DataTypes.INTEGER,
@@ -75,7 +75,6 @@ USER_M.init({
     }
 
 }, {
-    sequelize, // 我们需要传递连接实例
     modelName: 'pd_user', // 我们需要选择模型名称
     ...rules,
     // freezeTableName: true
@@ -95,7 +94,6 @@ USER_P_M.init({
     },
     u_password: DataTypes.STRING
 }, {
-    sequelize, // 我们需要传递连接实例
     modelName: 'pd_user_p', // 我们需要选择模型名称
     ...rules,
     timestamps: false,

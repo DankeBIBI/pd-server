@@ -12,13 +12,12 @@ interface _findUser {
 // USER_M.hasMany(USER_P_M, {
 //     foreignKey: 'u_id',
 // })
+// USER_M.sync()
 USER_P_M.belongsTo(USER_M, {
     as: 'userInfo',//起一个别名
     foreignKey: 'u_id',
     targetKey: 'u_id'
 })
-USER_P_M.sync()
-USER_M.sync()
 export const findUser = async (rules: _findUser) => {
     const find: any = await USER_M.findOne({ where: { ...rules } })
     if (find)
@@ -43,21 +42,34 @@ export class USER extends USER_M {
             u_id: Number(data.user)
         }
         try {
-            const res = data.user.length == 11 ? await USER_M.findOne({ where: { ...u_phone } }) : await USER_M.findOne({ where: { ...u_id } })
+            const res = data.user.length == 11 ? await USER_M.findOne({
+                where: { ...u_phone },
+                attributes: {
+                    exclude: ['id']
+                }
+            }) : await USER_M.findOne({
+                where: { ...u_id },
+                attributes: {
+                    exclude: ['id']
+                }
+            })
             if (res) {
                 const res_p: any = await USER_P_M.findAll({
                     where: {
                         u_id: res.u_id,
                     },
-                    include: [
-                        {
-                            model: USER_M,
-                            as: 'userInfo',
-                        }
-                    ],
-                    attributes: []
+                    // include: [
+                    //     {
+                    //         model: USER_M,
+                    //         as: 'userInfo',
+                    //     }
+                    // ],
+                    // attributes: []
                 })
-                src.success('登录成功', ...res_p)
+                if (res_p[0].u_password === data.password)
+                    src.success('登录成功', res)
+                else
+                    src.success('密码错误')
             } else {
                 src.success(`${data.user.length == 11 ? '手机号未注册' : '用户ID不存在'}`)
             }

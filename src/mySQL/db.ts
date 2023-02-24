@@ -12,11 +12,14 @@ const sequelize = new Sequelize('pd-base', 'root', 'root', {
         freezeTableName: true,
         createdAt: 'create_time',
         updatedAt: 'update_time',
-    }
+    },
+   timezone:'+08:00',
+   logging:true,//打印日志
+   
 });
+sequelize.sync()
 const rules = {
-
-
+    sequelize,
 }
 const runSequelize = async () => {
     try {
@@ -28,11 +31,11 @@ const runSequelize = async () => {
 }
 runSequelize()
 export {
-    sequelize,
     DataTypes,
     Model,
     tools,
     config,
     rules,
     interfaces,
+    sequelize
 }

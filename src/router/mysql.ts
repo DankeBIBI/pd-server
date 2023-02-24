@@ -12,14 +12,14 @@ router.get('/getUserInfo', USER.getUserInfo)
     .post('/updateUserInfo', USER.updateUserInfo)
     .post('/deleteUserInfo', USER.deleteUserInfo)
     .post('/login', USER.login)
-    //文件传输模块---------------------------------------------
+    //工具模块------------------------------------------------
     .post('/upload', TOOLS.upload)
     .get('/encryption', TOOLS.encryption)
     .get('/decrypt', TOOLS.decrypt)
     //文章模块------------------------------------------------
     .post('/createBlog', BLOG.createBlog)
-    .get('/userBlog', BLOG.getUserBlog)
-
+    .post('/userBlog', BLOG.getUserBlog)
+    .post('/setBlogStarAndViews',BLOG.setBlogStarAndViews)
     //状态模块------------------------------------------------
     // .get('/startLog', SERVER_LOG.startLog)
     // .get('/bb', BLOG.trys)

@@ -1,6 +1,8 @@
 import type { Context, Next } from 'koa'
 interface request {
     request: any,
+    response:any,
+    body:any,
     fail: Function,
     success: Function
 }

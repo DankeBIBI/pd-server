@@ -1,4 +1,4 @@
-import { DataTypes, sequelize, rules, Model, interfaces } from '../../db'
+import { DataTypes, rules, Model, interfaces } from '../../db'
 export const TYPES = interfaces
 export class BLOG_M extends Model {
     declare id: number           //
@@ -23,4 +23,4 @@ BLOG_M.init({
     pic: DataTypes.TEXT,
     views: DataTypes.INTEGER,
     star: DataTypes.INTEGER,
-}, { sequelize, modelName: 'pd_blog', ...rules })
+}, { modelName: 'pd_blog', ...rules })
