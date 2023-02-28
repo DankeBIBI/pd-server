@@ -3,7 +3,7 @@ import { tools } from '../../../utils/tools'
 import fs from 'fs'
 import config from '../../../utils/config'
 import { OSS } from '../../../utils/aliOss'
-import { UPLOAD_LOG_M } from './model'
+import { UPLOAD_LOG_M, PROJECT_SETTING_M } from './model'
 import { USER_M } from '../user/model'
 import { findUser } from '../user/index'
 UPLOAD_LOG_M.belongsTo(USER_M, {
@@ -12,6 +12,18 @@ UPLOAD_LOG_M.belongsTo(USER_M, {
     targetKey: 'u_id'
 })
 export class TOOLS {
+    /**
+     * 获取项目配置
+     */
+    static async getProjectInfo(src: Context | request) {
+        try {
+            const res = await PROJECT_SETTING_M.findAll({})
+            src.success('项目配置获取成功', res)
+        } catch (e) {
+            console.error(e);
+            src.success('项目配置获取失败', 501)
+        }
+    }
     /**
      * 加密
      */

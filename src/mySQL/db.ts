@@ -24,7 +24,7 @@ const rules = {
 const runSequelize = async () => {
     try {
         await sequelize.authenticate();
-        console.log('链接成功');
+        console.log('链接成功',MYSQL.HOST[BASE]);
     } catch (error) {
         console.error('连接失败', error);
     }

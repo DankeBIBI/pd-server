@@ -2,6 +2,7 @@ export default {
     projectName: 'photo_base',
     name: 'pb',
     host: '47.115.218.121',
+    // host: 'localhost',
     port: 8080,
     version: '1.0.1',
     useDB: 'mysql',
@@ -27,7 +28,7 @@ export default {
     },
     mySQL: {
         is_local: true,
-        BASE: 1,
+        BASE: 0,
         HOST: [
             '47.115.218.121',//远程
             'localhost',

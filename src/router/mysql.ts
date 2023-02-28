@@ -16,6 +16,7 @@ router.get('/getUserInfo', USER.getUserInfo)
     .post('/upload', TOOLS.upload)
     .get('/encryption', TOOLS.encryption)
     .get('/decrypt', TOOLS.decrypt)
+    .get('/getProjectInfo', TOOLS.getProjectInfo)
     //文章模块------------------------------------------------
     .post('/createBlog', BLOG.createBlog)
     .post('/userBlog', BLOG.getUserBlog)
