@@ -1,6 +1,6 @@
 import config from '../utils/config'
 import { tools } from '../utils/tools'
-import * as interfaces from '../utils/interface'
+import  * as interfaces from '../utils/interface'
 import { Model, DataTypes } from 'sequelize'
 const Sequelize = require('sequelize')
 const MYSQL = config.mySQL

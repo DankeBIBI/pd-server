@@ -1,4 +1,4 @@
-import { Model, DataTypes, rules, } from '../../db'
+import { Model, DataTypes, rules,config,tools,interfaces } from '../../db'
 export class UPLOAD_LOG_M extends Model {
     declare id: number           //
     declare u_id: number        //用户ID
@@ -30,3 +30,8 @@ PROJECT_SETTING_M.init({
     index_ad:DataTypes.STRING,
     index_tip:DataTypes.STRING
 },{...rules,modelName:'pd_project_setting'})
+export{
+    config,
+    tools,
+    interfaces
+} 

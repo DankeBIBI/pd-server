@@ -1,9 +1,6 @@
-import { Context, request, file } from '../../../utils/interface'
-import { tools } from '../../../utils/tools'
 import fs from 'fs'
-import config from '../../../utils/config'
 import { OSS } from '../../../utils/aliOss'
-import { UPLOAD_LOG_M, PROJECT_SETTING_M } from './model'
+import { UPLOAD_LOG_M, PROJECT_SETTING_M, config, tools,interfaces } from './model'
 import { USER_M } from '../user/model'
 import { findUser } from '../user/index'
 UPLOAD_LOG_M.belongsTo(USER_M, {
@@ -15,10 +12,12 @@ export class TOOLS {
     /**
      * 获取项目配置
      */
-    static async getProjectInfo(src: Context | request) {
+    static async getProjectInfo(src: interfaces.Context | interfaces.request) {
         try {
             const res = await PROJECT_SETTING_M.findAll({})
-            src.success('项目配置获取成功', res)
+            let cc = res.length
+            let index = Math.floor(Math.random() * cc)
+            src.success('项目配置获取成功', res[index])/*  */
         } catch (e) {
             console.error(e);
             src.success('项目配置获取失败', 501)
@@ -27,18 +26,18 @@ export class TOOLS {
     /**
      * 加密
      */
-    static encryption(src: Context) {
+    static encryption(src: interfaces.Context) {
         const msg = src.request.url.split('/api/encryption?msg=')[1]
         src.body = tools.encryption(msg)
     }
     /**
      * 解密
      */
-    static decrypt(src: Context) {
+    static decrypt(src: interfaces.Context) {
         const msg = src.request.url.split('/api/decrypt?msg=')[1]
         src.body = tools.decrypt(msg)
     }
-    static async upload(src: Context | request) {
+    static async upload(src: interfaces.Context | interfaces.request) {
         const data = src.request.body
         if (!data.user_id) {
             src.fail('请登录', 501)
@@ -90,7 +89,7 @@ export class TOOLS {
 
             })
         }
-        const file: file = src.request.files.file
+        const file: interfaces.file = src.request.files.file
         const param_ = {
             user: data.user_id,
             status: '上传成功',

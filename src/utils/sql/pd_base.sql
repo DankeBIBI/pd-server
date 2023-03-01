@@ -31,8 +31,7 @@ CREATE TABLE pd_project_setting(
  		index_tip TEXT NOT NULL COMMENT '首页提示语',
  		create_time DATETIME COMMENT '创建时间',
 		update_time DATETIME COMMENT '修改时间'
-) CHARSET = UTF8 ENGINE = INNODB ; 
-BEGIN;
+) CHARSET = UTF8 ENGINE = INNODB ; BEGIN;
 INSERT INTO pd_project_setting VALUES (1,'照片库','https://pd-base.oss-cn-heyuan.aliyuncs.com/project/INDEXIMG/sky.jpg','今天的天气不错','2023-2-3  12:9:0','2023-2-3  12:9:0');
 INSERT INTO pd_project_setting VALUES (2,'照片库','https://pd-base.oss-cn-heyuan.aliyuncs.com/project/INDEXIMG/water.jpg','今天的天气不错,雅虎！！！！！！','2023-2-3  12:9:0','2023-2-3  12:9:0');
 INSERT INTO pd_project_setting VALUES (3,'照片库','https://pd-base.oss-cn-heyuan.aliyuncs.com/project/INDEXIMG/ground.jpg','今天的天气不错嘻嘻嘻嘻嘻','2023-2-3  12:9:0','2023-2-3  12:9:0'); COMMIT;
@@ -90,7 +89,23 @@ DELETE CASCADE
 ) CHARSET = UTF8 ENGINE = INNODB ; BEGIN;
 INSERT INTO pd_blog (u_id,title,content,pic) VALUES (82022094,'今天的天气不错','Hello World!',1+1); COMMIT; 
  
-
+ /*
+ -- 文章收藏
+ */
+DROP TABLE if EXISTS pd_blog_collect;
+CREATE TABLE pd_blog_collect(
+		id INT AUTO_INCREMENT PRIMARY KEY  COMMENT '索引',
+		u_id INT(8) UNSIGNED NOT NULL COMMENT '用户ID' ,
+		b_id INT  NOT NULL COMMENT '文章ID',
+		pic TEXT, 
+		title VARCHAR (255), 
+		create_time DATETIME COMMENT '创建时间',
+		update_time DATETIME COMMENT '修改时间', FOREIGN KEY (b_id) REFERENCES  pd_blog(id), FOREIGN KEY (u_id) REFERENCES  pd_user(u_id) ON
+UPDATE CASCADE ON
+DELETE CASCADE
+) CHARSET = UTF8 ENGINE = INNODB ;
+ BEGIN;
+INSERT INTO pd_blog_collect VALUES (2,82022094,2,'https://pd-base.oss-cn-heyuan.aliyuncs.com/icon.png','Hello World123123','2023-2-3  12:9:0','2023-2-3  12:9:0'); COMMIT; 
 
  /*
   -- 上传记录表
@@ -106,6 +121,8 @@ UPDATE CASCADE ON
 DELETE CASCADE 
 ) CHARSET = UTF8 ENGINE = INNODB ; BEGIN;
 INSERT INTO pd_upload (u_id,size) VALUES (82022094,'100MB'); COMMIT; 
+
+
 #//////////////////////////////////
 BEGIN; SET foreign_key_checks = 1; COMMIT;
 #//////////////////////////////////

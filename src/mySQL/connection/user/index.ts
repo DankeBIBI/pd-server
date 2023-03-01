@@ -25,6 +25,10 @@ export const findUser = async (rules: _findUser) => {
     return false
 }
 export class USER extends USER_M {
+    /**
+     * 获取用户信息
+     * @param src 
+     */
     static async getUserInfo(src: Context | request) {
         const res = await USER.findAll()
         src.success('查询成功', res)
