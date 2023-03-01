@@ -1,5 +1,7 @@
 import { DataTypes, rules, Model, interfaces } from '../../db'
-export const TYPES = interfaces
+export {
+    interfaces
+} 
 export class BLOG_M extends Model {
     declare id: number           //
     declare u_id: number        //用户ID
