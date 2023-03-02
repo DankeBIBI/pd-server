@@ -42,7 +42,7 @@ export class BLOG extends BLOG_M {
         //   src.success(src.request.body)
         //   return
         try {
-            const res: any = await BLOG.findAndCountAll({
+            const res: any = await BLOG.findAll({
                 ...rules,
                 attributes: {
                     exclude: ['u_id']
@@ -55,14 +55,15 @@ export class BLOG extends BLOG_M {
                     }
                 ]
             })
-            if (res.count > 0) {
-                res.rows.forEach((element: any, index: number) => {
+            let list = res
+            if (list.length > 0) {
+                list.forEach((element: any, index: number) => {
                     if (element.pic && element.pic.length > 10) {
-                        res.rows[index].pic = JSON.parse(res.rows[index].pic)
+                        list[index].pic = JSON.parse(list[index].pic)
                     }
                 });
             }
-            src.success('查找成功', res)
+            src.success('查找成功', list)
         } catch (e) { console.error(e); }
     }
     static async setBlogStarAndViews(src: interfaces.Context | interfaces.request) {
