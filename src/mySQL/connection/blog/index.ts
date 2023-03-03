@@ -66,6 +66,9 @@ export class BLOG extends BLOG_M {
             src.success('查找成功', list)
         } catch (e) { console.error(e); }
     }
+    /**
+     * 设置浏览量与赞赞
+     */
     static async setBlogStarAndViews(src: interfaces.Context | interfaces.request) {
         const { id, views, star } = src.request.body
         const res: any = await BLOG_M.findOne({ where: { id: Number(id) } })
@@ -81,6 +84,9 @@ export class BLOG extends BLOG_M {
         src.success(`${views ? `浏览量+1` : '点赞成功'}`, res)
 
     }
+    /**
+     * 收藏文章
+     */
     static async collectTheBlog(src: interfaces.Context | interfaces.request) {
         const { user_id, id, pic, title } = src.request.body
         try {
@@ -92,6 +98,9 @@ export class BLOG extends BLOG_M {
             src.success('收藏成功！', res.create_time)
         } catch (e) { console.error(e); }
     }
+    /**
+     * 用户收藏的文章
+     */
     static async userCollectedTheBlog(src: interfaces.Context | interfaces.request) {
         const { user_id } = src.request.body
         if (!user_id) {
@@ -112,6 +121,30 @@ export class BLOG extends BLOG_M {
                 ]
             })
             src.success('', res)
+        } catch (e) { console.error(e); }
+    }
+    /**
+     * 文章详情
+     */
+    static async blogDetail(src: interfaces.Context | interfaces.request) {
+        const { id } = src.request.body
+        try {
+            const res: any = await BLOG_M.findOne({ 
+                where: { id: id },
+                include:[
+                    {
+                        model:USER_M,
+                        as:'author'
+                    }
+                ]
+            })
+            if (res) {
+                let list = res
+                list.pic = JSON.parse(list.pic)
+                src.success('查找成功', res)
+            }
+            else
+                src.fail('文章不存在或已删除')
         } catch (e) { console.error(e); }
     }
 }

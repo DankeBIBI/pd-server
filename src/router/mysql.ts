@@ -23,6 +23,7 @@ router.get('/getUserInfo', USER.getUserInfo)
     .post('/setBlogStarAndViews',BLOG.setBlogStarAndViews)
     .post('/userCollectedTheBlog',BLOG.userCollectedTheBlog)
     .post('/collectTheBlog',BLOG.collectTheBlog)
+    .post('/blogDetail',BLOG.blogDetail)
     //状态模块------------------------------------------------
     // .get('/startLog', SERVER_LOG.startLog)
     // .get('/bb', BLOG.trys)
