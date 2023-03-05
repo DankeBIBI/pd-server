@@ -1,5 +1,7 @@
-import { BLOG_M, BLOG_COLLECT_M, interfaces } from './model'
+import { BLOG_M, BLOG_COLLECT_M, BLOG_LIKE_M, interfaces } from './model'
 import { USER_M } from '../user/model'
+import { Context } from 'vm'
+import { request } from '../../../utils/interface'
 BLOG_M.belongsTo(USER_M, {
     as: 'author',
     foreignKey: 'u_id',
@@ -11,6 +13,17 @@ BLOG_COLLECT_M.belongsTo(USER_M, {
     targetKey: 'u_id'
 })
 BLOG_COLLECT_M.belongsTo(BLOG_M, {
+    as: 'blog',
+    foreignKey: 'b_id',
+    targetKey: 'id'
+})
+
+BLOG_LIKE_M.belongsTo(USER_M, {
+    as: 'author',
+    foreignKey: 'u_id',
+    targetKey: 'u_id'
+})
+BLOG_LIKE_M.belongsTo(BLOG_M, {
     as: 'blog',
     foreignKey: 'b_id',
     targetKey: 'id'
@@ -127,24 +140,71 @@ export class BLOG extends BLOG_M {
      * 文章详情
      */
     static async blogDetail(src: interfaces.Context | interfaces.request) {
-        const { id } = src.request.body
+        const { id, user_id } = src.request.body
         try {
-            const res: any = await BLOG_M.findOne({ 
+            const res: any = await BLOG_M.findOne({
                 where: { id: id },
-                include:[
+                include: [
                     {
-                        model:USER_M,
-                        as:'author'
+                        model: USER_M,
+                        as: 'author'
                     }
                 ]
             })
             if (res) {
-                let list = res
+                let src_ = JSON.parse(JSON.stringify(res))
+                let list: any = {
+                    is_star: 0,
+                    is_like: 0,
+                    ...src_
+                }
                 list.pic = JSON.parse(list.pic)
-                src.success('查找成功', res)
+                if (await BLOG_COLLECT_M.findOne({ where: { u_id: user_id, b_id: id } }))
+                    list.is_star = 1
+
+                if (await BLOG_LIKE_M.findOne({
+                    where: {
+                        b_id: id
+                    }
+                }))
+                    list.is_like = 1
+                src.success('查找成功', list)
             }
             else
                 src.fail('文章不存在或已删除')
         } catch (e) { console.error(e); }
+    }
+    /**
+     * 用户文章点赞
+     */
+    static async userStarTheBlog(src: Context | request) {
+        const { id, user_id } = src.request.body
+        if (await BLOG_LIKE_M.findOne({
+            where: {
+                b_id: id
+            }
+        })) {
+            src.fail('已经点赞过了')
+            return
+        }
+        try {
+            const res = await BLOG_LIKE_M.create({ u_id: user_id, b_id: id })
+            src.success('点赞成功')
+        } catch (e) { console.error(e); }
+    }
+    /**
+     * 用户点赞过的文章
+     */
+    static async userStarList(src: Context | request) {
+        const { user_id } = src.request.body
+        try {
+            const res = await BLOG_LIKE_M.findAll({
+                where: {
+                    u_id: user_id
+                }
+            })
+            src.success('查找成功', res)
+        } catch (e) { console.error(e); }
+
     }
 }

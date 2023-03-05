@@ -24,6 +24,8 @@ router.get('/getUserInfo', USER.getUserInfo)
     .post('/userCollectedTheBlog',BLOG.userCollectedTheBlog)
     .post('/collectTheBlog',BLOG.collectTheBlog)
     .post('/blogDetail',BLOG.blogDetail)
+    .post('/userStarTheBlog',BLOG.userStarTheBlog)
+    .post('/userStarList',BLOG.userStarList)
     //状态模块------------------------------------------------
     // .get('/startLog', SERVER_LOG.startLog)
     // .get('/bb', BLOG.trys)

@@ -94,18 +94,31 @@ INSERT INTO pd_blog (u_id,title,content,pic) VALUES (82022094,'今天的天气�
  */
 DROP TABLE if EXISTS pd_blog_collect;
 CREATE TABLE pd_blog_collect(
-		id INT AUTO_INCREMENT PRIMARY KEY  COMMENT '索引',
-		u_id INT(8) UNSIGNED NOT NULL COMMENT '用户ID' ,
-		b_id INT  NOT NULL COMMENT '文章ID',
+		id INT AUTO_INCREMENT PRIMARY KEY COMMENT '索引',
+		u_id INT(8) UNSIGNED NOT NULL COMMENT '用户ID',
+		b_id INT NOT NULL COMMENT '文章ID',
 		pic TEXT, 
 		title VARCHAR (255), 
 		create_time DATETIME COMMENT '创建时间',
-		update_time DATETIME COMMENT '修改时间', FOREIGN KEY (b_id) REFERENCES  pd_blog(id), FOREIGN KEY (u_id) REFERENCES  pd_user(u_id) ON
+		update_time DATETIME COMMENT '修改时间', FOREIGN KEY (b_id) REFERENCES pd_blog(id), FOREIGN KEY (u_id) REFERENCES pd_user(u_id) ON
 UPDATE CASCADE ON
 DELETE CASCADE
-) CHARSET = UTF8 ENGINE = INNODB ;
- BEGIN;
+) CHARSET = UTF8 ENGINE = INNODB ; BEGIN;
 INSERT INTO pd_blog_collect VALUES (2,82022094,2,'https://pd-base.oss-cn-heyuan.aliyuncs.com/icon.png','Hello World123123','2023-2-3  12:9:0','2023-2-3  12:9:0'); COMMIT; 
+/*
+ -- 文章点赞
+*/
+DROP TABLE if EXISTS pd_blog_like;
+CREATE TABLE pd_blog_like(
+		id INT AUTO_INCREMENT PRIMARY KEY COMMENT '索引',
+		u_id INT(8) UNSIGNED NOT NULL COMMENT '用户ID',
+		b_id INT NOT NULL COMMENT '文章ID',
+		create_time DATETIME COMMENT '创建时间',
+		update_time DATETIME COMMENT '修改时间', FOREIGN KEY (b_id) REFERENCES pd_blog(id), FOREIGN KEY (u_id) REFERENCES pd_user(u_id) ON
+UPDATE CASCADE ON
+DELETE CASCADE
+); BEGIN;
+INSERT INTO pd_blog_like VALUES (1,82022094,4,'2023-2-3  12:9:0','2023-2-3  12:9:0'); COMMIT;
 
  /*
   -- 上传记录表

@@ -1,6 +1,5 @@
 import { Context, Next, request } from '../utils/interface'
 import { KEY } from '../mySQL/utils/key'
-interface data { }
 const CHECKKEY = async (u_key: string, src: Context | request) => {
     const res:any = await KEY.findOne({where:{u_key:u_key}})
     if (res) {
@@ -19,7 +18,7 @@ export const response = () => {
         const {pd_key} = src.request.header
         if (! await CHECKKEY(pd_key, src))
             return
-        src.success = (tip: string, data: data) => {
+        src.success = (tip: string, data: any) => {
             src.response.status = 200//设置成功的状态
             src.body = {
                 code: 1,

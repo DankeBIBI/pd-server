@@ -1,7 +1,7 @@
 import { DataTypes, rules, Model, interfaces } from '../../db'
 export {
     interfaces
-} 
+}
 export class BLOG_M extends Model {
     declare id: number           //
     declare u_id: number        //用户ID
@@ -26,7 +26,7 @@ BLOG_M.init({
     views: DataTypes.INTEGER,
     star: DataTypes.INTEGER,
 }, { modelName: 'pd_blog', ...rules })
-export class BLOG_COLLECT_M extends Model{
+export class BLOG_COLLECT_M extends Model {
     declare id: number           //
     declare u_id: number        //用户ID
     declare b_id: number        //文章ID
@@ -45,6 +45,24 @@ BLOG_COLLECT_M.init({
         type: DataTypes.INTEGER,
         unique: true
     },
-    pic:DataTypes.STRING,
-    title:DataTypes.STRING,
-},{...rules,modelName:'pd_blog_collect'})
+    pic: DataTypes.STRING,
+    title: DataTypes.STRING,
+}, { ...rules, modelName: 'pd_blog_collect' })
+export class BLOG_LIKE_M extends Model {
+    declare id: number           //
+    declare u_id: number        //用户ID
+    declare b_id: number        //文章ID
+}
+BLOG_LIKE_M.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+    },
+    u_id: {
+        type: DataTypes.INTEGER,
+    },
+    b_id: {
+        type: DataTypes.INTEGER,
+        unique: true
+    },
+}, { ...rules, modelName: 'pd_blog_like' })
